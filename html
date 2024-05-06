@@ -1,0 +1,3894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Details Lookup</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>College Details Lookup</h1>
+        <form id="collegeDetailsForm" onsubmit="lookupCollegeDetails(event)">
+            <label for="collegeCode">Enter College Code:</label>
+            <input type="text" id="collegeCode" name="collegeCode" required>
+            <input type="submit" value="Lookup">
+        </form>
+        <div class="result" id="collegeDetailsResult"></div>
+    </div>
+
+    <script>
+        // Simulated college details stored in a JavaScript object
+        var collegeDetails = {
+            "679": {
+                name: "anatha lakshmi polytechnic ",
+                location: "ananthapur",
+                affiliation: "SBTET",
+                code: "ALTS",
+                branches:"DCME,DECE",
+                fee: "25000/-",
+               type: "private"
+            },
+            "020": {
+                name: "govt polytechnic",
+                location: "ananthapur",
+                affiliation: "SBTET",
+                code: "ANTP",
+                branches:"DECE,civil.mech,DAU",
+                fee:"4700/-",
+                type: "govt"
+            },
+            "203": {
+  name: "govt polytechnic",
+  location: "ADONI",
+  affiliation: "SBTET",
+  code: "ADNI",
+  branches: "DECE,DEEE",
+  fee: "4700/-",
+  type: "govt"
+},
+"202": {
+  name: "govt polytechnic",
+  location: "ADDANKI",
+  affiliation: "SBTET",
+  code: "ADNK",
+  branches: "DECE,DCME",
+  fee: "4700/-",
+  type: "govt"
+},
+"188": {
+  name: "govt polytechnic",
+  location: "ALURU",
+  affiliation: "SBTET",
+  code: "ALUR",
+  branches: "CIVIL,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"208": {
+  name: "govt polytechnic",
+  location: "AMUDALAVALASA",
+  affiliation: "SBTET",
+  code: "AMDV",
+  branches: "DECE,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"173": {
+  name: "govt polytechnic",
+  location: "ANAKAPALLI",
+  affiliation: "SBTET",
+  code: "ANKP",
+  branches: "DECE,DECE",
+  fee: "4700/-",
+  type: "govt"
+},
+"529": {
+  name: "govt polytechnic",
+  location: "ANAPARTHI",
+  affiliation: "SBTET",
+  code: "ANPT",
+  branches: "DECE,DECE,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"010": {
+  name: "govt polytechnic",
+  location: "KAKINADA",
+  affiliation: "SBTET",
+  code: "APKN",
+  branches: "DECE,DECE,MECH,DEEE,CIVIL,DAU,ARCHITECHUR",
+  fee: "4700/-",
+  type: "govt"
+},
+"305": {
+  name: "govt polytechnic",
+  location: "ATMAKUR",
+  affiliation: "SBTET",
+  code: "ATMK",
+  branches: "DECE,DAU,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"067": {
+  name: "govt polytechnic",
+  location: "YATAPAKA",
+  affiliation: "SBTET",
+  code: "BDCM",
+  branches: "DECE,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"045": {
+  name: "govt polytechnic",
+  location: "BHEEMUNIPATNAM",
+  affiliation: "SBTET",
+  code: "BMLW",
+  branches: "DECE,DCME,DCCP,CIVIL",
+  fee: "4700/-",
+  type: "govt"
+},
+"215": {
+  name: "govt polytechnic",
+  location: "MACHILAPATNAM",
+  affiliation: "SBTET",
+  code: "BNDR",
+  branches: "MECH,CIVIL",
+  fee: "4700/-",
+  type: "govt"
+},
+"166": {
+  name: "govt polytechnic",
+  location: "CHANDRAGIRI",
+  affiliation: "SBTET",
+  code: "CNGR",
+  branches: "DECE,DCME",
+  fee: "4700/-",
+  type: "govt"
+},
+"533": {
+  name: "govt polytechnic",
+  location: "CHIPURUPALLI",
+  affiliation: "SBTET",
+  code: "CPRP",
+  branches: "DECE,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"070": {
+  name: "govt polytechnic",
+  location: "GUDUR",
+  affiliation: "SBTET",
+  code: "CTGR",
+  branches: "CERAMIC TECHNOLOGY",
+  fee: "4700/-",
+  type: "govt"
+},
+"635": {
+  name: "govt polytechnic",
+  location: "CHODAVARAM",
+  affiliation: "SBTET",
+  code: "CVRM",
+  branches: "DECE,DCME",
+  fee: "4700/-",
+  type: "govt"
+},
+"170": {
+  name: "govt polytechnic",
+  location: "DHARMAVARAM",
+  affiliation: "SBTET",
+  code: "DMVM",
+  branches: "DECE,DCME",
+  fee: "4700/-",
+  type: "govt"
+},
+"528": {
+  name: "govt polytechnic",
+  location: "DRAKSHARAMAM",
+  affiliation: "SBTET",
+  code: "DRRM",
+  branches: "CIVIL,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"071": {
+  name: "SUVR & SR GOVERNMENT POLYTECHNIC FOR WOMEN, ETHAMUKKALA",
+  location: "ETHAMUKKALA",
+  affiliation: "SBTET",
+  code: "ETHW",
+  branches: "DCME,DECE,CCP",
+  fee: "4700/-",
+  type: "govt"
+},
+"065": {
+  name: "GOVERNMENT INSTITUTE OF CHEMICAL ENGINEERING, VSP",
+  location: "VISAKHAPATNAM",
+  affiliation: "SBTET",
+  code: "GICE",
+  branches: "DCE",
+  fee: "4700/-",
+  type: "govt"
+},
+"065": {
+  name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC",
+  location: "GUMMALAXMIPURAM",
+  affiliation: "SBTET",
+  code: "GLPM",
+  branches: "DEE,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"015": {
+  name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+  location: "GUNTUR",
+  affiliation: "SBTET",
+  code: "GNTW",
+  branches: "DECE,CCP,ADFT,PHARMACY",
+  fee: "4700/-",
+  type: "govt"
+},
+"183": {
+  name: "GOVERNMENT POLYTECHNIC",
+  location: "GANNAVARAM",
+  affiliation: "SBTET",
+  code: "GNVM",
+  branches: "DECE,MECH",
+  fee: "4700/-",
+  type: "govt"
+},
+"332": {
+  name: "GOVERNMENT POLYTECHNIC, CHINNAMERANGI",
+  location: "CHINNAMERANGI",
+  affiliation: "SBTET",
+  code: "GPCM",
+  branches: "Not specified",
+  fee: "4700",
+  type: "govt"
+},
+
+    "055": {
+        name: "SGPR GOVERNMENT POLYTECHNIC, KURNOOL",
+        location: "KURNOOL",
+        affiliation: "SBTET",
+        code: "GPKL",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+
+    "101": {
+        name: "DR. Y.C JAMES YEN GOVERNMENT POLYTECHNIC, KUPPAM",
+        location: "KUPPAM",
+        affiliation: "SBTET",
+        code: "GPKM",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+
+    "096": {
+        name: "GOVERNMENT POLYTECHNIC FOR MINORITIES, GUNTUR",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "GTRM",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "017": {
+        name: "GOVERNMENT POLYTECHNIC, GUDUR",
+        location: "GUDUR",
+        affiliation: "SBTET",
+        code: "GUDR",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "088": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN, SRIKAKULAM",
+        location: "SRIKAKULAM",
+        affiliation: "SBTET",
+        code: "GWSK",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "058": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN, HINDUPUR",
+        location: "HINDUPUR",
+        affiliation: "SBTET",
+        code: "HDPW",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "171": {
+        name: "GOVERNMENT POLYTECHNIC, JAMMALAMADUGU",
+        location: "JAMMALAMADUGU",
+        affiliation: "SBTET",
+        code: "JMDG",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "162": {
+        name: "GOVERNMENT POLYTECHNIC, JANGAREDDYGUDEM",
+        location: "JANGAREDDYGUDEM",
+        affiliation: "SBTET",
+        code: "JRGM",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+"201": {
+        name: "GOVERNMENT POLYTECHNIC, KANDUKURU",
+        location: "KANDUKUR",
+        affiliation: "SBTET",
+        code: "KDKR",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "192": {
+        name: "GOVERNMENT POLYTECHNIC, KALIDINDI",
+        location: "KALIDINDI",
+        affiliation: "SBTET",
+        code: "KDND",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "057": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN, KADAPA",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "KDPW",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "207": {
+        name: "GOVT.POLYTECHNIC, KALYANDURG",
+        location: "KALYANDURG",
+        affiliation: "SBTET",
+        code: "KDRG",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "175": {
+        name: "GOVERNMENT POLYTECHNIC, KADIRI",
+        location: "KADIRI",
+        affiliation: "SBTET",
+        code: "KDRI",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "011": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN, KAKINADA",
+        location: "KAKINADA",
+        affiliation: "SBTET",
+        code: "KKDW",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "200": {
+        name: "GOVERNMENT POLYTECHNIC, KALIKIRI",
+        location: "KALIKIRI",
+        affiliation: "SBTET",
+        code: "KLKR",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "199": {
+        name: "GOVERNMENT POLYTECHNIC, KAMALAPURAM",
+        location: "KAMALAPURAM",
+        affiliation: "SBTET",
+        code: "KMPM",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "098": {
+        name: "GOVERNMENT POLYTECHNIC FOR MINORITIES, KURNOOL",
+        location: "KURNOOL",
+        affiliation: "SBTET",
+        code: "KNLM",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "532": {
+        name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC, KR PURAM",
+        location: "K R PURAM",
+        affiliation: "SBTET",
+        code: "KRPM",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "212": {
+        name: "GOVERNMENT POLYTECHNIC, KROSUR",
+        location: "KROSURU",
+        affiliation: "SBTET",
+        code: "KRSR",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "209": {
+        name: "GOVERNMENT POLYTECHNIC, KAVALI",
+        location: "KAVALI",
+        affiliation: "SBTET",
+        code: "KVLI",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "209": {
+        name: "GOVERNMENT POLYTECHNIC, KAVALI",
+        location: "KAVALI",
+        affiliation: "SBTET",
+        code: "KVLI",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "014": {
+        name: "MBTS GOVERNMENT POLYTECHNIC, GUNTUR",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "MBTS",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "073": {
+        name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC, MADANAPALLI",
+        location: "MADANAPALLE",
+        affiliation: "SBTET",
+        code: "MDNP",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "077": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN, NANDIGAMA",
+        location: "NANDIGAMA",
+        affiliation: "SBTET",
+        code: "NGMW",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+     "016": {
+        name: "GOVERNMENT POLYTECHNIC, NELLORE",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "NLRG",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt" 
+   },
+   
+    "527": {
+        name: "GOVERNMENT POLYTECHNIC, NARPALA",
+        location: "NARPALA",
+        affiliation: "SBTET",
+        code: "NRPL",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "060": {
+        name: "GOVERNMENT POLYTECHNIC, NARSIPATNAM",
+        location: "NARSIPATNAM",
+        affiliation: "SBTET",
+        code: "NRSP",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+    },
+    "154": {
+        name: "GOVERNMENT POLYTECHNIC, OBULAVARIPALLI",
+        location: "OBULAVARIPALLY",
+        affiliation: "SBTET",
+        code: "OBVP",
+        branches: "Not specified",
+        fee: "4700",
+        type: "govt"
+     },
+       "039": {
+      name: "DA GOVERNMENT POLYTECHNIC",
+      location: "ONGOLE",
+      affiliation: "SBTET",
+      code: "ONGL",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "043": {
+      name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC",
+      location: "PADERU",
+      affiliation: "SBTET",
+      code: "PADR",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "639": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "PENDURTHI",
+      affiliation: "SBTET",
+      code: "PEND",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "059": {
+      name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+      location: "PALAMANER",
+      affiliation: "SBTET",
+      code: "PLMW",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "155": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "PILLARIPATTU",
+      affiliation: "SBTET",
+      code: "PLPT",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "164": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "PONNURU",
+      affiliation: "SBTET",
+      code: "PONR",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "022": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "PRODDATUR",
+      affiliation: "SBTET",
+      code: "PROD",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "503": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "PITHAPURAM",
+      affiliation: "SBTET",
+      code: "PTPM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "163": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "PARVATHIPURAM",
+      affiliation: "SBTET",
+      code: "PVPM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "213": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "RAYACHOTI",
+      affiliation: "SBTET",
+      code: "RCHT",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "531": {
+      name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC",
+      location: "RAMPACHODAVARAM",
+      affiliation: "SBTET",
+      code: "RCVM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "165": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "RAYADURG",
+      affiliation: "SBTET",
+      code: "RDRG",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "306": {
+      name: "GOVT. POLYTECHNIC",
+      location: "REPALLE",
+      affiliation: "SBTET",
+      code: "REPL",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "072": {
+      name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC",
+      location: "RAJAHMUNDRY",
+      affiliation: "SBTET",
+      code: "RJHY",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "176": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "RAJAMPETA",
+      affiliation: "SBTET",
+      code: "RJPT",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "187": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "SIMHADRIPURAM",
+      affiliation: "SBTET",
+      code: "SIPM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "008": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "SRIKAKULAM",
+      affiliation: "SBTET",
+      code: "SKLM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "536": {
+      name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC",
+      location: "SEETHAMMAPETA",
+      affiliation: "SBTET",
+      code: "SMPT",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "068": {
+      name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC",
+      location: "SRISAILAM",
+      affiliation: "SBTET",
+      code: "SSLM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "185": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "SATYAVEEDU",
+      affiliation: "SBTET",
+      code: "STVD",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "198": {
+      name: "SV GOVERNMENT POLYTECHNIC",
+      location: "TIRUPATHI",
+      affiliation: "SBTET",
+      code: "SVTP",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "198": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "TADIPATRI",
+      affiliation: "SBTET",
+      code: "TADP",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "535": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "TEKKALI",
+      affiliation: "SBTET",
+      code: "TKLI",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "178": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "TADEPALLIGUDEM",
+      affiliation: "SBTET",
+      code: "TPGM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "063": {
+      name: "GOVERNMENT INSTITUTE OF TEXTILE TECHNOLOGY",
+      location: "GUNTUR",
+      affiliation: "SBTET",
+      code: "TTGT",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "205": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "URAVAKONDA",
+      affiliation: "SBTET",
+      code: "UVKD",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "013": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "VIJAYAWADA",
+      affiliation: "SBTET",
+      code: "VJWD",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "172": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "VEMPALLI",
+      affiliation: "SBTET",
+      code: "VMPL",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "009": {
+      name: "GOVERNMENT POLYTECHNIC",
+      location: "VISAKHAPATNAM",
+      affiliation: "SBTET",
+      code: "VSPM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "038": {
+      name: "MRAGR GOVERNMENT POLYTECHNIC",
+      location: "0VIZIANAGARAM",
+      affiliation: "SBTET",
+      code: "VZNM",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+    "WNLR": {
+      name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+      location: "NELLORE",
+      affiliation: "SBTET",
+      code: "WNLR",
+      branches: "Not specified",
+      fee: "4700/-",
+      type: "govt"
+    },
+        "ABRK": {
+        "name": "ABR COLLEGE OF ENGG AND TECHNOLOGY",
+        location: "KANIGIRI",
+        affiliation: "SBTET",
+        code: "ABRK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ABSV": {
+        name: "ARYABHATTA POLYTECHNIC",
+        location: "SABBAVARAM",
+        affiliation: "SBTET",
+        code: "ABSV",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ACEE": {
+        name: "ADARSH COLLEGE OF ENGINEERING",
+        location: "GOLLAPROLU",
+        affiliation: "SBTET",
+        code: "ACEE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ACES": {
+        name: "ADITYA COLLEGE OF ENGINEERING",
+        location: "PEDDAPURAM",
+        affiliation: "SBTET",
+        code: "ACES",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ACET": {
+        name: "ADITYA COLLEGE OF ENGINEERING AND TECHNOLOGY",
+        location: "PEDDAPURAM",
+        affiliation: "SBTET",
+        code: "ACET",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ADIT": {
+        name: "ADITYA INSTITUTE OF TECHNOLOGY AND MGMT",
+        location: "TEKKALI",
+        affiliation: "SBTET",
+        code: "ADIT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ADTP": {
+        name: "ADITYA ENGINEERING COLLEGE",
+        location: "PEDDAPURAM",
+        affiliation: "SBTET",
+        code: "ADTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "AHNR": {
+        name: "AL HUDA POLYTECHNIC",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "AHNR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ALDS": {
+        name: "ALWARDAS POLYTECHNIC",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "ALDS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ALWR": {
+        name: "ALWAR POLYTECHNIC",
+        location: "GAJUWAKA",
+        affiliation: "SBTET",
+        code: "ALWR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "AMRN": {
+        name: "A.M.REDDY MEMORIAL COLL. OF ENGINEERING",
+        location: "NARSARAOPET",
+        affiliation: "SBTET",
+        code: "AMRN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ANMB": {
+        name: "ACHARYA COLLEGE OF ENGINEERING",
+        location: "BADVEL",
+        affiliation: "SBTET",
+        code: "ANMB",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ANSN": {
+        name: "ST. ANNS COLLEGE OF ENGG. AND TECHNOLOGY",
+        location: "CHIRALA",
+        affiliation: "SBTET",
+        code: "ANSN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "APCB": {
+        name: "AVANTHI POLYTECHNIC COLLEGE",
+        location: "BOGAPURAM",
+        affiliation: "SBTET",
+        code: "APCB",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "APCE": {
+        name: "AVANTHI POLYTECHNIC COLLEGE",
+        location: "EGRAZEEPALEM",
+        affiliation: "SBTET",
+        code: "APCE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "APDL": {
+        name: "AVANTHI POLYTECHNIC COLLEGE",
+        location: "DAWAJIGUDEM",
+        affiliation: "SBTET",
+        code: "APDL",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "APSB": {
+        name: "AVANTHI POLYTECHNIC COLLEGE",
+        location: "BHOGAPURAM",
+        affiliation: "SBTET",
+        code: "APSB",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "APTN": {
+        name: "AVANTHI POLYTECHNIC COLLEGE",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "APTN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "APVN": {
+        name: "AVANTHI POLYTECHNIC COLLEGE",
+        location: "NARSAPUR",
+        affiliation: "SBTET",
+        code: "APVN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ARMR": {
+        name: "ARMR POLYTECHNIC",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "ARMR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ATPC": {
+        name: "ANTHAPUR POLYTECHNIC",
+        location: "ANTHAPUR",
+        affiliation: "SBTET",
+        code: "ATPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "AULP": {
+        name: "A.U.L POLYTECHNIC",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "AULP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "AWRR": {
+        name: "AWAARYA INSTITUTE OF POLYTECHNIC",
+        location: "RAMPACHODAVARAM",
+        affiliation: "SBTET",
+        code: "AWRR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "AYDP": {
+        name: "AYODHYA POLYTECHNIC",
+        location: "NARASARAOPET",
+        affiliation: "SBTET",
+        code: "AYDP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BDBA": {
+        name: "BABA INSTITUTE OF TECHNOLOGY AND SCIENCES",
+        location: "VISAJPATNAM",
+        affiliation: "SBTET",
+        code: "BDBA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BCES": {
+        name: "BALAJI CHOWDARY COLLEGE OF ENGINEERING",
+        location: "AMALAPURAM",
+        affiliation: "SBTET",
+        code: "BCES",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BCMP": {
+        name: "BHASKARA POLYTECHNIC",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "BCMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BGRE": {
+        name: "BHAGYASRI COLLEGE OF ENGINEERING AND TECHNOLOGY",
+        location: "RAYALASEEMA",
+        affiliation: "SBTET",
+        code: "BGRE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BLLS": {
+        name: "BALLELLA LAKSHMAIAH POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "BLLS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BLSG": {
+        name: "BL POLYTECHNIC",
+        location: "SANGAM JAGARLAMUDI",
+        affiliation: "SBTET",
+        code: "BLSG",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BNCN": {
+        name: "B.S.ABDUR RAHMAN POLYTECHNIC",
+        location: "GUDIVADA",
+        affiliation: "SBTET",
+        code: "BNCN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BPDC": {
+        name: "BABA POLYTECHNIC",
+        location: "DHONE",
+        affiliation: "SBTET",
+        code: "BPDC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BRIN": {
+        name: "BRAHMAIAH INSTITUTE OF TECHNOLOGY AND SCIENCES",
+        location: "VISHAKAPATNAM",
+        affiliation: "SBTET",
+        code: "BRIN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BSER": {
+        name: "BSR ENGINEERING COLLEGE",
+        location: "SOMPETA",
+        affiliation: "SBTET",
+        code: "BSER",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BSID": {
+        name: "BASIREDDY MEMORIAL INSTITUTE OF TECHNOLOGY",
+        location: "NARSAPURAM",
+        affiliation: "SBTET",
+        code: "BSID",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "BTSN": {
+        name: "BATCHU SAI INSTITUTE OF TECHNOLOGY",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "BTSN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CAAS": {
+        name: "C R REDDY POLYTECHNIC",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "CAAS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CASV": {
+        name: "CHAITANYA INSTITUTE OF TECHNOLOGY AND SCIENCES",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "CASV",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CBIT": {
+        name: "CHAITANYA BHARATHI INSTITUTE OF TECHNOLOGY",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "CBIT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CBKL": {
+        name: "CHAITANYA BHARATHI POLYTECHNIC",
+        location: "KORISAPADU",
+        affiliation: "SBTET",
+        code: "CBKL",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CCJK": {
+        name: "C C S INSTITUTE OF POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "CCJK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CCPK": {
+        name: "C C POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "CCPK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CDCE": {
+        name: "CHANDRAMMA DEVI INSTITUTE OF ENGG AND TECHNOLOGY",
+        location: "PULIVENDULA",
+        affiliation: "SBTET",
+        code: "CDCE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CECN": {
+        name: "CREATIVE POLYTECHNIC",
+        location: "TUNI",
+        affiliation: "SBTET",
+        code: "CECN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CIAH": {
+        name: "CHANDRA POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "CIAH",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CIMP": {
+        name: "CHAITANYA POLYTECHNIC",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "CIMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CJAC": {
+        name: "C M R POLYTECHNIC",
+        location: "NARSARAOPET",
+        affiliation: "SBTET",
+        code: "CJAC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CKRI": {
+        name: "CHIKKALURU POLYTECHNIC",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "CKRI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CLBK": {
+        name: "CHALAPATI INSTITUTE OF POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "CLBK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CMLP": {
+        name: "CHAITANYA BAHARATHI POLYTECHNIC",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "CMLP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CNRG": {
+        name: "CHANAMOLU NAGA RAJU POLYTECHNIC",
+        location: "PEDAPARUPUDI",
+        affiliation: "SBTET",
+        code: "CNRG",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CPRP": {
+        name: "CHAITANYA POLYTECHNIC",
+        location: "REPALLE",
+        affiliation: "SBTET",
+        code: "CPRP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "CTMK": {
+        name: "CENTURION INSTITUTE OF TECHNOLOGY AND MANAGEMENT",
+        location: "KAKINADA",
+        affiliation: "SBTET",
+        code: "CTMK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DARK": {
+        name: "DR KKR INSTITUTE OF TECHNOLOGY AND SCIENCES",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "DARK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DASN": {
+        name: "DAS POLYTECHNIC",
+        location: "KOTHAKOTA",
+        affiliation: "SBTET",
+        code: "DASN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DATN": {
+        name: "DATTALI NAGESWAR RAO POLYTECHNIC",
+        location: "NANDIGAMA",
+        affiliation: "SBTET",
+        code: "DATN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DBDC": {
+        name: "DR B.R. AMBEDKAR POLYTECHNIC",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "DBDC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DBEK": {
+        name: "DR B.R. AMBEDKAR POLYTECHNIC",
+        location: "KALIKIRI",
+        affiliation: "SBTET",
+        code: "DBEK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DBIP": {
+        name: "DR B.R. AMBEDKAR POLYTECHNIC",
+        location: "PEDDAPARTHI",
+        affiliation: "SBTET",
+        code: "DBIP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DBLT": {
+        name: "DR B.R. AMBEDKAR POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "DBLT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DBRA": {
+        name: "DR B.R. AMBEDKAR POLYTECHNIC",
+        location: "RAYADURGAM",
+        affiliation: "SBTET",
+        code: "DBRA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DCBI": {
+        name: "DURGAIAH CHOWDARY INSTITUTE OF TECHNOLOGY",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "DCBI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DCNN": {
+        name: "DURGA POLYTECHNIC",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "DCNN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DDDE": {
+        name: "DR.D.DURGA PRASAD MEMORIAL POLYTECHNIC",
+        location: "KANDUKUR",
+        affiliation: "SBTET",
+        code: "DDDE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DDMP": {
+        name: "DR DURGA PRASAD MEMORIAL POLYTECHNIC",
+        location: "KONDAPALLY",
+        affiliation: "SBTET",
+        code: "DDMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DDRR": {
+        name: "DURGA POLYTECHNIC",
+        location: "RAJAMAHENDRAVARAM",
+        affiliation: "SBTET",
+        code: "DDRR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DEAR": {
+        name: "DEEKSHARAMBHAM ENGINEERING AND RESEARCH",
+        location: "KOVUR",
+        affiliation: "SBTET",
+        code: "DEAR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DECP": {
+        name: "DEEKSHA POLYTECHNIC",
+        location: "NARASARAOPET",
+        affiliation: "SBTET",
+        code: "DECP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DGMP": {
+        name: "DR.GOKARAJU RANGARAJU POLYTECHNIC",
+        location: "MEKAPATI RAJAMUNDRY",
+        affiliation: "SBTET",
+        code: "DGMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DIBT": {
+        name: "DIBT POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "DIBT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DKPC": {
+        name: "DR. K.V.SUBBA REDDY INSTITUTE OF TECHNOLOGY",
+        location: "KURNOOL",
+        affiliation: "SBTET",
+        code: "DKPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DPPM": {
+        name: "D R K INSTITUTE OF SCIENCE AND TECHNOLOGY",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "DPPM",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DSND": {
+        name: "DR SAMBASIVA RAO POLYTECHNIC",
+        location: "NARSAPUR",
+        affiliation: "SBTET",
+        code: "DSND",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DTTP": {
+        name: "DR T.V.GEORGE INSTITUTE OF SCIENCE AND TECHNOLOGY",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "DTTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DUDR": {
+        name: "DR UMADEVI POLYTECHNIC",
+        location: "GIDDALUR",
+        affiliation: "SBTET",
+        code: "DUDR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DVNM": {
+        name: "DEVI POLYTECHNIC",
+        location: "MALKAPURAM",
+        affiliation: "SBTET",
+        code: "DVNM",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "DWRR": {
+        name: "DR.WILLIAMSONS POLYTECHNIC",
+        location: "RAJAMUNDRY",
+        affiliation: "SBTET",
+        code: "DWRR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ECRI": {
+        name: "ELLANKI COLLEGE OF ENGINEERING",
+        location: "DEVARAPALLI",
+        affiliation: "SBTET",
+        code: "ECRI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "EGBA": {
+        name: "EGG TECHNOLOGY POLYTECHNIC",
+        location: "JUPUDI",
+        affiliation: "SBTET",
+        code: "EGBA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "EMAS": {
+        name: "EMAS ACADEMY",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "EMAS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "EPCL": {
+        name: "EENADU POLYTECHNIC COLLEGE",
+        location: "ATREYAPURAM",
+        affiliation: "SBTET",
+        code: "EPCL",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ESGC": {
+        name: "EENADU SCHOOL OF GENERAL NURSING",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "ESGC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ESMR": {
+        name: "E.S.MEMORIAL POLYTECHNIC",
+        location: "PITAPURAM",
+        affiliation: "SBTET",
+        code: "ESMR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "FRIN": {
+        name: "FRAGMINA INSTITUTE OF TECHNOLOGY AND MANAGEMENT",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "FRIN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GCER": {
+        name: "GAYATRI COLLEGE OF ENGINEERING",
+        location: "SATHUPALLI",
+        affiliation: "SBTET",
+        code: "GCER",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GCRP": {
+        name: "GAYATHRI COLLEGE OF ENGINEERING",
+        location: "KOTHAPETA",
+        affiliation: "SBTET",
+        code: "GCRP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GCTK": {
+        name: "GAYATRI POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "GCTK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GDPM": {
+        name: "GOVT INSTITUTE OF PRINTING TECHNOLOGY",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "GDPM",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GICP": {
+        name: "GOVT INSTITUTE OF CHEMICAL ENGINEERING",
+        location: "VISHAKAPATNAM",
+        affiliation: "SBTET",
+        code: "GICP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GMCA": {
+        name: "GOVT MODEL RESIDENTIAL POLYTECHNIC COLLEGE",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "GMCA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GMCE": {
+        name: "GOVERNMENT MODEL RESIDENTIAL POLYTECHNIC",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "GMCE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GOCB": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "GOCB",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GODO": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+        location: "DWARAKA TIRUMALA",
+        affiliation: "SBTET",
+        code: "GODO",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GOPN": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+        location: "NANDIGAMA",
+        affiliation: "SBTET",
+        code: "GOPN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GOVE": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "GOVE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GOWP": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+        location: "PONNUR",
+        affiliation: "SBTET",
+        code: "GOWP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GPRW": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+        location: "RAJAHMUNDRY",
+        affiliation: "SBTET",
+        code: "GPRW",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GPTK": {
+        name: "GOVERNMENT POLYTECHNIC FOR WOMEN",
+        location: "TEKKALI",
+        affiliation: "SBTET",
+        code: "GPTK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GTRC": {
+        name: "GOVERNMENT TANNIRUCHARLA RAMA RAO POLYTECHNIC COLLEGE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "GTRC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GVTP": {
+        name: "GOVERNMENT VIKRAMA TATYA PULIPATI POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "GVTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "GWID": {
+        name: "GOVERNMENT WOMENS INSTITUTE OF TECHNOLOGY",
+        location: "DHONE",
+        affiliation: "SBTET",
+        code: "GWID",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "HSBC": {
+        name: "HINDUSTAN INSTITUTE OF TECHNOLOGY",
+        location: "GUNUPUR",
+        affiliation: "SBTET",
+        code: "HSBC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ICAI": {
+        name: "I C A I INSTITUTE OF ENGINEERING AND TECHNOLOGY",
+        location: "AKKAYYAPALEM",
+        affiliation: "SBTET",
+        code: "ICAI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ICEI": {
+        name: "ICET ENGINEERING COLLEGE",
+        location: "MADANAPALLE",
+        affiliation: "SBTET",
+        code: "ICEI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IDKC": {
+        name: "INNOVATIVE INSTITUTE OF TECHNOLOGY",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "IDKC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IIPN": {
+        name: "INDUS INSTITUTE OF PHARMACY",
+        location: "VISHAKAPATNAM",
+        affiliation: "SBTET",
+        code: "IIPN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPEW": {
+        name: "INDIAN POLYTECHNIC",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "IPEW",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPJW": {
+        name: "INDIAN POLYTECHNIC",
+        location: "JAGGAYYAPET",
+        affiliation: "SBTET",
+        code: "IPJW",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPLR": {
+        name: "INDIAN POLYTECHNIC",
+        location: "LAKKIREDDY PALLI",
+        affiliation: "SBTET",
+        code: "IPLR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPPP": {
+        name: "INDIAN POLYTECHNIC",
+        location: "PEDAPURAM",
+        affiliation: "SBTET",
+        code: "IPPP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPRR": {
+        name: "INDIAN POLYTECHNIC",
+        location: "RAJAHMUNDRY",
+        affiliation: "SBTET",
+        code: "IPRR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPRY": {
+        name: "INDIAN POLYTECHNIC",
+        location: "RAYACHOTY",
+        affiliation: "SBTET",
+        code: "IPRY",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPSN": {
+        name: "INDIAN POLYTECHNIC",
+        location: "SANKHAVARAM",
+        affiliation: "SBTET",
+        code: "IPSN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPSP": {
+        name: "INDIAN POLYTECHNIC",
+        location: "SIRIVADA",
+        affiliation: "SBTET",
+        code: "IPSP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPSV": {
+        name: "INDIAN POLYTECHNIC",
+        location: "SIVAKODURU",
+        affiliation: "SBTET",
+        code: "IPSV",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPVK": {
+        name: "INDIAN POLYTECHNIC",
+        location: "VENKATAGIRI",
+        affiliation: "SBTET",
+        code: "IPVK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPVP": {
+        name: "INDIAN POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "IPVP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPVT": {
+        name: "INDIAN POLYTECHNIC",
+        location: "VIJAYARAMAPURAM",
+        affiliation: "SBTET",
+        code: "IPVT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "IPYD": {
+        name: "INDIAN POLYTECHNIC",
+        location: "YANAM",
+        affiliation: "SBTET",
+        code: "IPYD",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "ISCA": {
+        name: "INDIAN SCHOOL OF COMPUTERS AND APPLICATIONS",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "ISCA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "JEEA": {
+        name: "JEENIS ENGINEERING COLLEGE",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "JEEA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "JLTP": {
+        name: "JNTU LAKSHMI PRASAD POLYTECHNIC",
+        location: "KAKINADA",
+        affiliation: "SBTET",
+        code: "JLTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "JSPN": {
+        name: "JAGAN SCHOOL OF POLYTECHNIC",
+        location: "NALGONDA",
+        affiliation: "SBTET",
+        code: "JSPN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KBCP": {
+        name: "KALIKIRI BROTHERS COLLEGE OF PHARMACY",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "KBCP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KCFP": {
+        name: "KAKINADA COLLEGE OF PHARMACY",
+        location: "KAKINADA",
+        affiliation: "SBTET",
+        code: "KCFP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KDDR": {
+        name: "KADRICH DORA REDDY POLYTECHNIC",
+        location: "PEDDAPARTHI",
+        affiliation: "SBTET",
+        code: "KDDR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KDEC": {
+        name: "KESAVA REDDY INSTITUTE OF TECHNOLOGY",
+        location: "CUDDAPAH",
+        affiliation: "SBTET",
+        code: "KDEC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KGPC": {
+        name: "KANAKA DURGA POLYTECHNIC",
+        location: "KODAD",
+        affiliation: "SBTET",
+        code: "KGPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KGVK": {
+        name: "KRISHNAVENI POLYTECHNIC COLLEGE",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "KGVK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KIPW": {
+        name: "KRANTHI INSTITUTE OF PHARMACEUTICAL SCIENCES",
+        location: "KRISHNA",
+        affiliation: "SBTET",
+        code: "KIPW",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KLTA": {
+        name: "KUROTTI LAXMAIAH INSTITUTE OF TECHNOLOGY",
+        location: "TADIKONDA",
+        affiliation: "SBTET",
+        code: "KLTA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KMAT": {
+        name: "KAMALA POLYTECHNIC",
+        location: "KURNOOL",
+        affiliation: "SBTET",
+        code: "KMAT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KPTP": {
+        name: "KRANTHI POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "KPTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KRTP": {
+        name: "KRISHNA REDDY INSTITUTE OF TECHNOLOGY AND ENGINEERING",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "KRTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KTCA": {
+        name: "KAKARAPARTI BHAVANI COLLEGE OF PHARMACY",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "KTCA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KTPC": {
+        name: "KRANTHI POLYTECHNIC COLLEGE",
+        location: "KURNOOL",
+        affiliation: "SBTET",
+        code: "KTPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KTWC": {
+        name: "KAMALA TECHNOLOGICAL AND VOCATIONAL COLLEGE",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "KTWC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "KVCP": {
+        name: "KAKARAPARTHI VENKATAIAH COLLEGE OF PHARMACY",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "KVCP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "LSCA": {
+        name: "LIFE SCHOOL COLLEGE OF COMPUTER APPLICATION",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "LSCA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MABT": {
+        name: "MADHU ANNAI BENEDICTA TEACHERS TRAINING INSTITUTE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MABT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MACA": {
+        name: "MADHURA KALAM CHARITABLE TRUSTS GROUP OF INSTITUTIONS",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MACA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MACD": {
+        name: "MADRASA-E-ANISUL ULOOM COLLEGE OF ENGINEERING",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MACD",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MALY": {
+        name: "MALI POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "MALY",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MATS": {
+        name: "MATRUSRI ENGINEERING COLLEGE",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "MATS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MBCA": {
+        name: "MAHATHMA BASWESWAR COLLEGE OF ARTS AND SCIENCE",
+        location: "SRIKALAHASTI",
+        affiliation: "SBTET",
+        code: "MBCA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MBKC": {
+        name: "MAHAVEER B ED COLLEGE",
+        location: "PALAMANER",
+        affiliation: "SBTET",
+        code: "MBKC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MBSC": {
+        name: "MAGNA COLLGE OF ENGINEERING",
+        location: "PULLAREDDY",
+        affiliation: "SBTET",
+        code: "MBSC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MCAC": {
+        name: "MADRAS CHRISTIAN COLLEGE",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "MCAC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MCCP": {
+        name: "MADRAS COLLEGE OF COMPUTER PHARMACEUTICAL SCIENCES",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "MCCP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MCNP": {
+        name: "MADANAPALLE COLLEGE OF NURSING",
+        location: "MADANAPALLE",
+        affiliation: "SBTET",
+        code: "MCNP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MCRP": {
+        name: "MADANAPALLE COLLEGE OF PHARMACY",
+        location: "MADANAPALLE",
+        affiliation: "SBTET",
+        code: "MCRP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MCTC": {
+        name: "MALLIKARJUNA COLLEGE OF TEACHER EDUCATION",
+        location: "MAHABUBNAGAR",
+        affiliation: "SBTET",
+        code: "MCTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MDCN": {
+        name: "MODUGULA DORAIAH CHOWDARY & VIJAYA LAKSHMI POLYTECHNIC",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "MDCN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MDIT": {
+        name: "MADHAVA INSTITUTE OF TECHNOLOGY & SCIENCE",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "MDIT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MDTP": {
+        name: "MEKAPATI DORAIAH TRUST POLYTECHNIC",
+        location: "KAVALI",
+        affiliation: "SBTET",
+        code: "MDTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MECA": {
+        name: "MERTS CHRISTIAN ACADEMY",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MECA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MEPA": {
+        name: "MEENAKSHI ENGINEERING POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MEPA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MERI": {
+        name: "MEENAKSHI RAMASWAMY ENGINEERING COLLEGE",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "MERI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MFCA": {
+        name: "MALLAREDDY INSTITUTE OF COMPUTER APPLICATION",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MFCA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MFKP": {
+        name: "MALIREDDY KRISHNAREDDY POLYTECHNIC",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "MFKP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MGPP": {
+        name: "MAHAVEER INSTITUTE OF TECHNOLOGY AND SCIENCE",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "MGPP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MHIT": {
+        name: "M H I T POLYTECHNIC COLLEGE",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "MHIT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MHPT": {
+        name: "MANAGEMENT HOUSE POLYTECHNIC",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "MHPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MIDR": {
+        name: "MAHAVEER INSTITUTE OF MANAGEMENT AND RESEARCH",
+        location: "HYDERABAD",
+        affiliation: "SBTET",
+        code: "MIDR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MIGP": {
+        name: "MADHAVI INSTITUTE OF GANAPATHI POLYTECHNIC",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "MIGP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MIMR": {
+        name: "MOHAMMED IQBAL MEMORIAL POLYTECHNIC",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "MIMR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MIPC": {
+        name: "MODERN INSTITUTE OF PHARMACY COLLEGE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MIPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MITS": {
+        name: "MAGNUS INSTITUTE OF TECHNOLOGY & SCIENCE",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "MITS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MITS": {
+        name: "MAGNUS INSTITUTE OF TECHNOLOGY & SCIENCE",
+        location: "HYDERABAD",
+        affiliation: "SBTET",
+        code: "MITS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MKAN": {
+        name: "MEKAPATI KISHORE KUMAR INSTITUTE OF TECHNOLOGY",
+        location: "KAVALI",
+        affiliation: "SBTET",
+        code: "MKAN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MKEC": {
+        name: "MEKAPATI RAJARAO ENGINEERING COLLEGE",
+        location: "PUTTUR",
+        affiliation: "SBTET",
+        code: "MKEC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MKTE": {
+        name: "MEKAPATI KOTESWARA RAO INSTITUTE OF TECHNOLOGY",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MKTE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MKTK": {
+        name: "MAHARAJAH'S KOTESWARA SCHOOL OF NURSING",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MKTK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MKTP": {
+        name: "MEKAPATI KOTESWARA RAO POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MKTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MLYT": {
+        name: "MOTHER LAKSHMI YANTRA KSHETRA",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MLYT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MMIP": {
+        name: "MADURAMMARY INSTITUTE OF PHARMACEUTICAL SCIENCES",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MMIP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MMLP": {
+        name: "MEKAPATI MUTHI LAKSHMAIAH POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MMLP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MNMH": {
+        name: "MNM HIGHER SECONDARY SCHOOL",
+        location: "NARSARAOPET",
+        affiliation: "SBTET",
+        code: "MNMH",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MNRN": {
+        name: "MEKAPATI NAGALAKSHMI REDDY ENGINEERING COLLEGE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MNRN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MNTP": {
+        name: "MEKAPATI NAGAIAH TRUST POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MNTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MPTC": {
+        name: "MEKAPATI PADMANABHAM TRUST POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MPTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MRCR": {
+        name: "MUDRA INSTITUTE OF COMPUTER RESEARCH",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MRCR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MRES": {
+        name: "M M A RESIDENTIAL POLYTECHNIC COLLEGE",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "MRES",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MRKC": {
+        name: "M R K COLLEGE",
+        location: "SULLURUPETA",
+        affiliation: "SBTET",
+        code: "MRKC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MRLP": {
+        name: "M R LAKSHMAIAH MEMORIAL POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MRLP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MRRK": {
+        name: "M R R COLLEGE OF NURSING",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "MRRK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MRSC": {
+        name: "M R S COLLEGE",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "MRSC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MSAC": {
+        name: "M S ANJANEYULU COLLEGE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MSAC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MSAI": {
+        name: "M S ANJANEYULU INSTITUTE OF PHARMACY",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MSAI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MSEC": {
+        name: "M S ENGINEERING COLLEGE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MSEC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MSET": {
+        name: "M S EDUCATIONAL TRUST",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MSET",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MSTC": {
+        name: "M S B TECHNICAL COLLEGE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "MSTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MTPC": {
+        name: "M T P V POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "MTPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVCE": {
+        name: "M V POLYTECHNIC COLLEGE",
+        location: "BANAVASI",
+        affiliation: "SBTET",
+        code: "MVCE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVEN": {
+        name: "M V POLYTECHNIC COLLEGE",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "MVEN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVIK": {
+        name: "M VIJAYA KUMARI POLYTECHNIC",
+        location: "HYDERABAD",
+        affiliation: "SBTET",
+        code: "MVIK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVPT": {
+        name: "M V POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "MVPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVRP": {
+        name: "M V POLYTECHNIC COLLEGE",
+        location: "REPALLE",
+        affiliation: "SBTET",
+        code: "MVRP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVRP": {
+        name: "M V POLYTECHNIC COLLEGE",
+        location: "NARASARAOPET",
+        affiliation: "SBTET",
+        code: "MVRP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVSJ": {
+        name: "M V S J POLYTECHNIC COLLEGE",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "MVSJ",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVSP": {
+        name: "M V S R POLYTECHNIC COLLEGE",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "MVSP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVSP": {
+        name: "M V S POLYTECHNIC COLLEGE",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "MVSP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVSR": {
+        name: "M V S R POLYTECHNIC",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "MVSR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MVST": {
+        name: "M V S R TECHNOLOGICAL INSTITUTE",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "MVST",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MWEC": {
+        name: "MODERN WOMENS ENGINEERING COLLEGE",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "MWEC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "MYPG": {
+        name: "MAHARAJA'S YADAVINDRA POLYTECHNIC",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "MYPG",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NANP": {
+        name: "NADELLA NAGESWARA RAO POLYTECHNIC",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "NANP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NARP": {
+        name: "NAGARJUNA POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "NARP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NASC": {
+        name: "NAGARJUNA SECONDARY SCHOOL",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "NASC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NATP": {
+        name: "NANDAMURI ACADEMY OF TECHNOLOGY & PHARMACY",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "NATP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NAVT": {
+        name: "NAVA JEEVANA TRUST COLLEGE",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "NAVT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NCKE": {
+        name: "NAIDU CHINA KRISHNAIAH EDUCATIONAL SOCIETY",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "NCKE",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NCTK": {
+        name: "N C T POLYTECHNIC",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "NCTK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEDP": {
+        name: "NAGARJUNA EDUCATIONAL DEVELOPMENT SOCIETY POLYTECHNIC",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "NEDP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NARASARAOPETA ENGINEERING POLYTECHNIC",
+        location: "NARSARAOPET",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NANNAPANENI EDUCATIONAL TRUST POLYTECHNIC",
+        location: "REPALLE",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "KRISHNA",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NARAYANA ENGINEERING POLYTECHNIC",
+        location: "NALGONDA",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "REPALLE",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "VIJAYAWADA RURAL",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NEPT": {
+        name: "NAGARJUNA ENGINEERING POLYTECHNIC",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "NEPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NIPR": {
+        name: "NIPPARU POLYTECHNIC",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "NIPR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NISR": {
+        name: "NIMS SCIENCE AND RESEARCH INSTITUTE",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "NISR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NITC": {
+        name: "NARASARAOPET INSTITUTE OF TECHNOLOGY AND SCIENCE",
+        location: "NARSARAOPET",
+        affiliation: "SBTET",
+        code: "NITC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NITC": {
+        name: "NATP POLYTECHNIC",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "NITC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NIYR": {
+        name: "NIRYATHA INSTITUTE OF YOGA RESEARCH",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "NIYR",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NLPC": {
+        name: "NADIPATHI LINGANNA POLYTECHNIC",
+        location: "SULLURUPETA",
+        affiliation: "SBTET",
+        code: "NLPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMNC": {
+        name: "NARAYANA MULTITECHNICAL PRIVATE ITI",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "NMNC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMRP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "REPALLE",
+        affiliation: "SBTET",
+        code: "NMRP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMRP": {
+        name: "NANIS POLYTECHNIC COLLEGE",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "NMRP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "NIDAMANOOR",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "NTRUNAGARAM",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "NUZVID",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "PEDDAPURAM",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "PONNUR",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "PUTTUR",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "RAJAHMUNDRY",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "REPALLE",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "SATTENAPALLE",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "SULLURUPETA",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "VIJAYAWADA RURAL",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NMTP": {
+        name: "NAGARJUNA MAHILA POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "NMTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NPVC": {
+        name: "NARAYANAPURAM VENKATAPURAM POLYTECHNIC COLLEGE",
+        location: "SRIKAKULAM",
+        affiliation: "SBTET",
+        code: "NPVC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NRMP": {
+        name: "NARASARAOPETA MAHILA POLYTECHNIC",
+        location: "NARSARAOPET",
+        affiliation: "SBTET",
+        code: "NRMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NRMP": {
+        name: "NARASARAOPETA MAHILA POLYTECHNIC",
+        location: "SATTENAPALLE",
+        affiliation: "SBTET",
+        code: "NRMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NRMP": {
+        name: "NARASARAOPETA MAHILA POLYTECHNIC",
+        location: "VIJAYAWADA RURAL",
+        affiliation: "SBTET",
+        code: "NRMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NRMP": {
+        name: "NARASARAOPETA MAHILA POLYTECHNIC",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "NRMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NRTC": {
+        name: "NANDAMURI RAMAKRISHNA TECHNICAL COLLEGE",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "NRTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NSBC": {
+        name: "NAGARJUNA SCHOOL OF BUSINESS COMPUTERS",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "NSBC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NSPH": {
+        name: "NAGARJUNA SCHOOL OF PHARMACY",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "NSPH",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "NTNP": {
+        name: "NANDAMURI THARAKARAMA NAIIDU POLYTECHNIC",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "NTNP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "OSCF": {
+        name: "OSMINI SRI CHAITANYA POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "OSCF",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PADP": {
+        name: "PADMAVATHI POLYTECHNIC",
+        location: "NALGONDA",
+        affiliation: "SBTET",
+        code: "PADP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PAPL": {
+        name: "PADMA PRIYA POLYTECHNIC",
+        location: "REPALLE",
+        affiliation: "SBTET",
+        code: "PAPL",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PAPL": {
+        name: "PADMA PRIYA POLYTECHNIC",
+        location: "PEDANANDIPADU",
+        affiliation: "SBTET",
+        code: "PAPL",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PCOT": {
+        name: "PADMASRI POLYTECHNIC",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "PCOT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PENC": {
+        name: "PENAMALA EDUCATIONAL SOCIETY POLYTECHNIC",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "PENC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PHRJ": {
+        name: "POTLURI HANUMANARAO RANGAIAH JUVENILE HOME",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "PHRJ",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PMPC": {
+        name: "POTTUMARRI PALLI MAHILA POLYTECHNIC COLLEGE",
+        location: "PRODDATUR",
+        affiliation: "SBTET",
+        code: "PMPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PPOL": {
+        name: "PAVAN POLYTECHNIC",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "PPOL",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PPOL": {
+        name: "POTLURI PRASAD POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "PPOL",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PRCK": {
+        name: "PRAKASH POLYTECHNIC",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "PRCK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PRCT": {
+        name: "PARAMESWARA ARTS AND SCIENCE AND TECHNOLOGY",
+        location: "PUTTUR",
+        affiliation: "SBTET",
+        code: "PRCT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PRSP": {
+        name: "PRIYADARSHINI POLYTECHNIC",
+        location: "NAGARJUNA SAGAR",
+        affiliation: "SBTET",
+        code: "PRSP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PRTC": {
+        name: "PUSAPATIREDDY THECHNICAL CAMPUS",
+        location: "VIJAYAWADA RURAL",
+        affiliation: "SBTET",
+        code: "PRTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PRTP": {
+        name: "PADMA PRIYA TECHNICAL POLYTECHNIC",
+        location: "PEDANANDIPADU",
+        affiliation: "SBTET",
+        code: "PRTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PTPC": {
+        name: "PRAGATHI POLYTECHNIC COLLEGE",
+        location: "BOLLAVARAM",
+        affiliation: "SBTET",
+        code: "PTPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PTPK": {
+        name: "PRAGATI POLYTECHNIC",
+        location: "NARASARAOPET",
+        affiliation: "SBTET",
+        code: "PTPK",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PWOP": {
+        name: "PRIYA WOMENS ORPHANAGE POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "PWOP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "RAGC": {
+        name: "RANGARAJA ARTS AND SCIENCE COLLEGE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "RAGC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "RAGC": {
+        name: "RANGARAYA ARTS AND SCIENCE COLLEGE",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "RAGC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "RJMP": {
+        name: "RAMAIAH JUVENILE MAHILA POLYTECHNIC",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "RJMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "RJMT": {
+        name: "RAMAIAH JUVENILE MAHILA POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "RJMT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "RMTC": {
+        name: "RELIABLE MACHINE TOOL COMPANY PRIVATE ITI",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "RMTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "RSNP": {
+        name: "R S NAGAR POLYTECHNIC",
+        location: "VIZIANAGARAM",
+        affiliation: "SBTET",
+        code: "RSNP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "RSPP": {
+        name: "R S POLYTECHNIC",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "RSPP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SAPN": {
+        name: "SARASWATHI MAHILA POLYTECHNIC",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "SAPN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SAPT": {
+        name: "SARASWATHI MAHILA POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "SAPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SBSC": {
+        name: "SRI BALAJI SAGAR POLYTECHNIC COLLEGE",
+        location: "NARSARAOPET",
+        affiliation: "SBTET",
+        code: "SBSC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SBTI": {
+        name: "SRI BHARATHI THECHNICAL INSTITUTE",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "SBTI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SCEA": {
+        name: "SRI CHAITANYA EDUCATIONAL ACADEMY",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "SCEA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SCET": {
+        name: "SRI CHAITANYA ENGINEERING COLLEGE",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "SCET",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SCTP": {
+        name: "SRI CHAITANYA THECHNICAL POLYTECHNIC",
+        location: "RAJAHMUNDRY",
+        affiliation: "SBTET",
+        code: "SCTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SDMP": {
+        name: "S D M POLYTECHNIC",
+        location: "NANDYAL",
+        affiliation: "SBTET",
+        code: "SDMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SGMP": {
+        name: "SRI GAYATRI MAHILA POLYTECHNIC",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "SGMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SGP1": {
+        name: "SRI GAYATRI POLYTECHNIC",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "SGP1",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SGPS": {
+        name: "SRI GAYATRI POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "SGPS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SHPC": {
+        name: "SHANTHI POLYTECHNIC",
+        location: "PEDDAPURAM",
+        affiliation: "SBTET",
+        code: "SHPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SIPC": {
+        name: "SRI INDIRA PRIYADARSINI COLLEGE",
+        location: "ANAKAPALLI",
+        affiliation: "SBTET",
+        code: "SIPC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SITM": {
+        name: "SRI INDU TECHNICAL MANAGEMENT",
+        location: "TENALI",
+        affiliation: "SBTET",
+        code: "SITM",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SKTC": {
+        name: "SRI KRISHNA TECHNICAL CAMPUS",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "SKTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SLEC": {
+        name: "SRI LAKSHMI ENGINEERING COLLEGE",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "SLEC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SMTS": {
+        name: "SRI MAHABHARATHA TECHNICAL SCHOOL",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "SMTS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SPCM": {
+        name: "SRI PRABHA CHARITABLE TRUST POLYTECHNIC",
+        location: "NALGONDA",
+        affiliation: "SBTET",
+        code: "SPCM",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SPEI": {
+        name: "SRI PADMABHUSHAN ENGINEERING INSTITUTE",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "SPEI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SPLA": {
+        name: "SRI PARAMESWARI MAHILA POLYTECHNIC",
+        location: "NIDADAVOLU",
+        affiliation: "SBTET",
+        code: "SPLA",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SPMC": {
+        name: "SRI PRAKASH MAHILA POLYTECHNIC",
+        location: "RAJAMUNDRY",
+        affiliation: "SBTET",
+        code: "SPMC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SPMP": {
+        name: "SRI PRAKASH MAHILA POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "SPMP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SPTC": {
+        name: "SRI PRAKASH THECHNICAL CAMPUS",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "SPTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SPTP": {
+        name: "SRI PRAKASH THECHNICAL POLYTECHNIC",
+        location: "ELURU",
+        affiliation: "SBTET",
+        code: "SPTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SRAB": {
+        name: "SRI RAGHAVA BAZAAR POLYTECHNIC",
+        location: "KURNOOL",
+        affiliation: "SBTET",
+        code: "SRAB",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SRAI": {
+        name: "SRI RAMADEVI POLYTECHNIC",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "SRAI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SRAM": {
+        name: "SRI RAMA POLYTECHNIC",
+        location: "SRIKALAHASTI",
+        affiliation: "SBTET",
+        code: "SRAM",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SRET": {
+        name: "SRI RAO ELETRICAL TECHNOLOGY",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "SRET",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SRTC": {
+        name: "SRI RATHAN THECHNICAL CAMPUS",
+        location: "SRIKALAHASTI",
+        affiliation: "SBTET",
+        code: "SRTC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SSIT": {
+        name: "SRI SRI INSTITUTE OF TECHNOLOGY",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "SSIT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SSPN": {
+        name: "SRI SAI POLYTECHNIC",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "SSPN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SSPT": {
+        name: "SRI SAI POLYTECHNIC",
+        location: "TANUKU",
+        affiliation: "SBTET",
+        code: "SSPT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SSSS": {
+        name: "SRI SAI SUDHEER POLYTECHNIC",
+        location: "SRIKALAHASTI",
+        affiliation: "SBTET",
+        code: "SSSS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "STCI": {
+        name: "SRI TECHNICAL CAMPUS",
+        location: "ANANTAPUR",
+        affiliation: "SBTET",
+        code: "STCI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "STMC": {
+        name: "SRI THECHNICAL MANAGEMENT CAMPUS",
+        location: "CHITTOOR",
+        affiliation: "SBTET",
+        code: "STMC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SVCT": {
+        name: "SRI VENKATESWARA CHEMICAL TECHNOLOGY",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "SVCT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SVIT": {
+        name: "SRI VENKATESWARA INDUSTRIAL TRAINING CENTER",
+        location: "NELLORE",
+        affiliation: "SBTET",
+        code: "SVIT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SVTT": {
+        name: "SRI VENKATESWARA THECHNICAL TRAINING",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "SVTT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "SWSI": {
+        name: "SREE SREE WELFARE SOCIETY INDUSTRIAL",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "SWSI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "TNNP": {
+        name: "T NARENDRA POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "TNNP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "TPEC": {
+        name: "TADIKONDA POLYTECHNIC",
+        location: "GUNTUR",
+        affiliation: "SBTET",
+        code: "TPEC",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "TPTP": {
+        name: "T P THECHNICAL POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "TPTP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "TRNI": {
+        name: "TRINITY WOMEN'S POLYTECHNIC COLLEGE",
+        location: "KADAPA",
+        affiliation: "SBTET",
+        code: "TRNI",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "TSBT": {
+        name: "TRIVENI SAI POLYTECHNIC",
+        location: "VIJAYAWADA",
+        affiliation: "SBTET",
+        code: "TSBT",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "VIGN": {
+        name: "VIGNAN POLYTECHNIC",
+        location: "VISHAKAPATNAM",
+        affiliation: "SBTET",
+        code: "VIGN",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "VIMS": {
+        name: "VIMS COLLEGE OF ENGINEERING",
+        location: "VISAKHAPATNAM",
+        affiliation: "SBTET",
+        code: "VIMS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "VINP": {
+        name: "VINAYAKA POLYTECHNIC",
+        location: "NARASARAOPET",
+        affiliation: "SBTET",
+        code: "VINP",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "VIPS": {
+        name: "VIVEKANANDA POLYTECHNIC",
+        location: "TIRUPATI",
+        affiliation: "SBTET",
+        code: "VIPS",
+        branches: "Not specified",
+        fee: "25000/-",
+        type: "PRIVATE"
+    },
+    "PVKK": {
+  name: "PVKK INSTUTION OF TECHNOLOGY",
+  location: "ANANTHAPUR",
+  affiliation: "SBTET",
+  code: "PVKK",
+  branches: "Not specified",
+  fee: "25000/-",
+  type: "PRIVATE"
+}
+        };
+
+        function lookupCollegeDetails(event) {
+            event.preventDefault();
+            var collegeCode = document.getElementById('collegeCode').value.toUpperCase();
+            var college = collegeDetails[collegeCode];
+            if (college) {
+                document.getElementById('collegeDetailsResult').innerHTML = `
+                    <p>Name: ${college.name}</p>
+                    <p>Location: ${college.location}</p>
+                    <p>Affiliation: ${college.affiliation}</p>
+                    <p>code: ${college.code}</p>
+                    <p>branches:${college.branches}</p>
+                    <p>fee:${college.fee}</p>
+                    <p>type:${college.type}</p>
+                    <p>CREATED BY</p>
+                    <p>GUDURU GOWRI NARAYANA</p>
+                    <p>84 govt colleges</p>
+                `;
+                document.getElementById('collegeDetailsResult').style.color = 'green';
+            } else {
+                document.getElementById('collegeDetailsResult').innerText = 'College not found!';
+                document.getElementById('collegeDetailsResult').style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>
